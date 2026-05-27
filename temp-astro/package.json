@@ -22,7 +22,6 @@
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.3.3",
     "dayjs": "^1.11.20",
-    "decap-cms-core": "^3.13.0",
     "lodash.kebabcase": "^4.1.1",
     "remark-collapse": "^0.1.2",
     "remark-toc": "^9.0.0",
