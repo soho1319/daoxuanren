@@ -31,7 +31,7 @@ const posts = (await getCollection('blog'))
 					<ul style="list-style:none; padding:0; margin:0;">
 						{posts.map((post) => (
 							<li style="margin-bottom:1.8em;">
-								<a href={`/blog/${post.slug}`} style="font-size:1.15em; border:none; color:rgb(var(--black));">{post.data.title}</a>
+								<a href={`/${post.slug}`} style="font-size:1.15em; border:none; color:rgb(var(--black));">{post.data.title}</a>
 								{post.data.pubDate && (
 									<div style="font-size:0.85em; color:rgb(var(--gray)); margin-top:0.3em;">
 										<FormattedDate date={post.data.pubDate} />
