@@ -90,14 +90,23 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			<div id="waline"></div>
 		</main>
 		<Footer />
-		<script is:inline src="https://cdn.jsdelivr.net/npm/@waline/client@v3/dist/waline.js"></script>
 		<script is:inline>
-			Waline.init({
-				el: '#waline',
-				serverURL: 'https://c.daoxuanren.com',
-				lang: 'zh-CN',
-				dark: 'auto',
-			});
+			function initWaline() {
+				if (typeof Waline !== 'undefined') {
+					Waline.init({
+						el: '#waline',
+						serverURL: 'https://c.daoxuanren.com',
+						lang: 'zh-CN',
+						dark: 'auto',
+					});
+				} else {
+					setTimeout(initWaline, 100);
+				}
+			}
+			var s = document.createElement('script');
+			s.src = 'https://cdn.jsdelivr.net/npm/@waline/client@v3/dist/waline.js';
+			s.onload = initWaline;
+			document.body.appendChild(s);
 		</script>
 	</body>
 </html>
