@@ -11,9 +11,10 @@ type Props = CollectionEntry<'blog'>['data'];
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="zh-CN">
 	<head>
 		<BaseHead title={title} description={description} />
+		<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
 		<style>
 			main {
 				width: calc(100% - 2em);
@@ -35,6 +36,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				margin: auto;
 				padding: 1em;
 				color: rgb(var(--gray-dark));
+			}
+			#waline {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: 2em auto;
+				padding: 1em;
 			}
 			.title {
 				margin-bottom: 1em;
@@ -80,7 +87,17 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 					<slot />
 				</div>
 			</article>
+			<div id="waline"></div>
 		</main>
 		<Footer />
+		<script is:inline src="https://unpkg.com/@waline/client@v3/dist/waline.js"></script>
+		<script is:inline>
+			Waline.init({
+				el: '#waline',
+				serverURL: 'https://waline-daoxuanren.ggq221.workers.dev',
+				lang: 'zh-CN',
+				dark: 'auto',
+			});
+		</script>
 	</body>
 </html>
