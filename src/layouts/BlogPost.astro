@@ -14,7 +14,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 <html lang="zh-CN">
 	<head>
 		<BaseHead title={title} description={description} />
-		<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@waline/client@v3/dist/waline.css" />
 		<style>
 			main {
 				width: calc(100% - 2em);
@@ -90,7 +90,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			<div id="waline"></div>
 		</main>
 		<Footer />
-		<script is:inline src="https://unpkg.com/@waline/client@v3/dist/waline.js"></script>
+		<script is:inline src="https://cdn.jsdelivr.net/npm/@waline/client@v3/dist/waline.js"></script>
 		<script is:inline>
 			Waline.init({
 				el: '#waline',
