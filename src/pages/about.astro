@@ -1,0 +1,23 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`关于 | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>关于道玄人</h1>
+			<p>道玄人，不问归期，只问归处。</p>
+			<p>这个网站用来分享道玄相关的文章与体悟，连接每一个道玄人。</p>
+			<p>如果你也有道玄路上的故事，欢迎交流。</p>
+		</main>
+		<Footer />
+	</body>
+</html>
