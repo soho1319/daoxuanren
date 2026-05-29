@@ -14,7 +14,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 <html lang="zh-CN">
 	<head>
 		<BaseHead title={title} description={description} />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@waline/client@v3/dist/waline.css" />
+		<link rel="stylesheet" href="/waline/waline.css" />
 		<style>
 			main {
 				width: calc(100% - 2em);
@@ -104,7 +104,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				}
 			}
 			var s = document.createElement('script');
-			s.src = 'https://cdn.jsdelivr.net/npm/@waline/client@v3/dist/waline.js';
+			s.src = '/waline/waline.js';
 			s.onload = initWaline;
 			document.body.appendChild(s);
 		</script>
