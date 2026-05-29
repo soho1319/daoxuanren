@@ -75,20 +75,28 @@ import HeaderLink from './HeaderLink.astro';
 	if (!btn) return;
 
 	var isTrad = localStorage.getItem(key) === 'trad';
-	if (isTrad) btn.textContent = '简';
 
-	function loadOpenCC(callback) {
-		if (typeof OpenCC !== 'undefined') { callback(); return; }
+	function loadScript(url, callback) {
+		if (document.querySelector('script[src="' + url + '"]')) {
+			callback();
+			return;
+		}
 		var s = document.createElement('script');
-		s.src = '/opencc-cn2t.js';
+		s.src = url;
 		s.onload = callback;
+		s.onerror = function() { console.error('Failed to load: ' + url); };
 		document.head.appendChild(s);
 	}
 
 	function convertToTrad() {
-		loadOpenCC(function() {
+		loadScript('/opencc-cn2t.js', function() {
+			if (typeof OpenCC === 'undefined') {
+				console.error('OpenCC not loaded');
+				return;
+			}
 			var converter = OpenCC.Converter({ from: 'cn', to: 't' });
 			var htmlConv = OpenCC.HTMLConverter(converter, document.body, 'zh-CN', 'zh-TW');
+			window.__opencc_html_conv = htmlConv;
 			htmlConv.convert();
 			localStorage.setItem(key, 'trad');
 			btn.textContent = '简';
@@ -96,28 +104,16 @@ import HeaderLink from './HeaderLink.astro';
 	}
 
 	function restoreToSimp() {
-		loadOpenCC(function() {
-			if (typeof window.__opencc_html_conv !== 'undefined') {
-				window.__opencc_html_conv.restore();
-			} else {
-				var converter = OpenCC.Converter({ from: 'cn', to: 't' });
-				var htmlConv = OpenCC.HTMLConverter(converter, document.body, 'zh-CN', 'zh-TW');
-				htmlConv.convert();
-				htmlConv.restore();
-			}
-			localStorage.setItem(key, 'simp');
-			btn.textContent = '繁';
-		});
+		if (window.__opencc_html_conv) {
+			window.__opencc_html_conv.restore();
+		}
+		localStorage.setItem(key, 'simp');
+		btn.textContent = '繁';
 	}
-
-	// Store converter for restore
-	var origConvert = null;
 
 	btn.addEventListener('click', function() {
 		if (localStorage.getItem(key) === 'trad') {
-			// Switch back to simplified
-			location.reload();
-			localStorage.setItem(key, 'simp');
+			restoreToSimp();
 		} else {
 			convertToTrad();
 		}
