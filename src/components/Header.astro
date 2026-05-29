@@ -80,9 +80,16 @@ import HeaderLink from './HeaderLink.astro';
 	var originalTexts = [];
 
 	function loadScript(url, callback) {
-		if (document.querySelector('script[src="' + url + '"]')) {
-			callback();
-			return;
+		// Check if OpenCC is already loaded or script tag exists (relative or absolute URL)
+		if (typeof OpenCC !== 'undefined') { callback(); return; }
+		var scripts = document.querySelectorAll('script');
+		for (var i = 0; i < scripts.length; i++) {
+			if (scripts[i].src && scripts[i].src.indexOf('opencc-cn2t') !== -1) {
+				// Script tag found, wait for it to load
+				scripts[i].addEventListener('load', callback);
+				scripts[i].addEventListener('error', function() { console.error('Failed to load OpenCC'); });
+				return;
+			}
 		}
 		var s = document.createElement('script');
 		s.src = url;
