@@ -1,0 +1,41 @@
+# 发布计划 - 按阅读逻辑排序，每天发布 2-3 篇
+# 运行 ./publish.sh 会按此顺序依次发布
+
+# === 第1天（6月1日）：深入了解自己 ===
+dream-interpretation-guide.md
+why-dao-children-avoid-socializing.md
+daily-signs-from-team.md
+
+# === 第2天（6月2日）：因果与清理 ===
+three-karmic-debts.md
+big-cleaning-karma.md
+unborn-spirits-impact.md
+
+# === 第3天（6月3日）：体系与区别 ===
+dao-vs-mashu-differences.md
+five-colors-team-roles.md
+real-vs-fake-guardian.md
+
+# === 第4天（6月4日）：修行入门 ===
+three-steps-of-practice.md
+practice-probation-period.md
+five-tests-on-the-path.md
+
+# === 第5天（6月5日）：信任与案例 ===
+trust-your-team.md
+student-stories-before-after.md
+
+# === 第6天（6月6日）：日常修炼 ===
+face-your-weakness.md
+stay-calm-in-practice.md
+practice-is-daily-life.md
+
+# === 第7天（6月7日）：师生与学习 ===
+teacher-student-relationship.md
+why-you-need-a-teacher.md
+keep-learning-always.md
+
+# === 第8天（6月8日）：专业知识 ===
+name-and-five-elements.md
+feng-shui-layout-power.md
+altar-setup-guide.md
