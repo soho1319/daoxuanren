@@ -24,7 +24,7 @@ while IFS= read -r filename; do
 
   # 检查文件是否还在队列中
   if [ -f "$QUEUE_DIR/$filename" ]; then
-    # 更新 pubDate 为今天（兼容 macOS BSD sed 和 Windows GNU sed）
+    # 更新 pubDate 为今天（兼容 macOS BSD sed 和 Linux/Windows GNU sed）
     if [[ "$OSTYPE" == "darwin"* ]]; then
       sed -i '' "s/^pubDate:.*$/pubDate: $TODAY/" "$QUEUE_DIR/$filename"
     else

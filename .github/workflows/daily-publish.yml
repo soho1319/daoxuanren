@@ -1,0 +1,50 @@
+name: Daily Publish
+
+on:
+  # 每天 UTC 01:00 = 北京时间 09:00
+  schedule:
+    - cron: '0 1 * * *'
+  # 也支持手动触发
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PUSH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set git config
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+
+      - name: Sync from remote
+        run: |
+          # 先拉取远程最新内容（避免冲突）
+          git pull --rebase origin "$GITHUB_REF_NAME" || {
+            echo "::warning::拉取失败，尝试继续（可能本地和远程有分歧）"
+            git pull --rebase --strategy-option=theirs origin "$GITHUB_REF_NAME" || true
+          }
+
+      - name: Make publish.sh executable
+        run: chmod +x publish.sh
+
+      - name: Run publish (1 article per day)
+        run: ./publish.sh 1
+
+      - name: Commit and push
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "publish: $(date +%Y-%m-%d) 自动发布 1 篇"
+            git push origin "$GITHUB_REF_NAME"
+            echo "✅ 发布完成"
+          else
+            echo "📭 今天队列里没有可发布的文章了"
+          fi
