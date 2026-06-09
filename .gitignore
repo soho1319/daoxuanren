@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Obsidian / 编辑器原子保存临时文件
+*.edtz

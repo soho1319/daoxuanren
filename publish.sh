@@ -24,6 +24,12 @@ while IFS= read -r filename; do
 
   # 检查文件是否还在队列中
   if [ -f "$QUEUE_DIR/$filename" ]; then
+    # 防止重复发布：如果目标文件已存在于 blog/，跳过并删除残留
+    if [ -f "$BLOG_DIR/$filename" ]; then
+      echo "⚠️  跳过: $filename 已在 blog/ 中，删除 queue 残留"
+      rm "$QUEUE_DIR/$filename"
+      continue
+    fi
     # 更新 pubDate 为今天（兼容 macOS BSD sed 和 Linux/Windows GNU sed）
     if [[ "$OSTYPE" == "darwin"* ]]; then
       sed -i '' "s/^pubDate:.*$/pubDate: $TODAY/" "$QUEUE_DIR/$filename"
